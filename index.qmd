@@ -1,13 +1,15 @@
 ---
-title: "Geomarker Curation and Computation"
-subtitle: "Intro to Medical Informatics"
+title: "Population Health Informatics"
+subtitle: "Clinical Informatics Learning Community"
 author: "Cole Brokamp"
-date: "2023-10-30"
+date: "2023-11-02"
 format: 
   revealjs:
     theme: cole.scss
     standalone: true
     embed-resources: true
+    link-external-icon: false
+    link-external-newwindow: true
 ---
 
 ## Cole Brokamp
@@ -22,34 +24,29 @@ Cincinnati Children’s Hospital Medical Center
 
 &nbsp;
 
-&nbsp;
-
 ⚙️ **Methods and tools to support environmental and population health research**  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    - geocoding, data linkage, geomarker assessment  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    - hyperlocal, spatiotemporal air pollution exposure assessment models  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    - machine learning methods for causal inference 
 
+&nbsp;
+
 📍 **Effects of environmental exposures and community characteristics on childhood health outcomes**
+
+&nbsp;
 
 ⚖️ **Fairness in place-based data science, environmental and population health, precision health**
 
-![](figs/cole_circle.png){.absolute right=150 top=-20 width=230}
+![](figs/cole_circle.png){.absolute right=150 top=-20 width=200}
 	
 # Geomarkers
+## *Geomarker:*&nbsp; Any place-based measure that influences or predicts health
 
-##
+![](figs/geomarker-map-4panel.png){fig-align="center"}
 
-**Geomarker**: Any place-based measure that influences or predicts health
-
-**Geocoding**: Converting a string of text into spatial coordinates or boundaries
+## Extant Place-Based Data Must Be Harmonized
 
 ![](figs/disparate_geo_data_sources.png){fig-align="center"}
-
-## Geomarkers
-
-:::: {.columns}
-
-:::{.column width="40%"}
 
 **Social & Economic**: American Community Survey, indices, crime, resource deserts
 
@@ -57,132 +54,35 @@ Cincinnati Children’s Hospital Medical Center
 
 **Hyperlocal**: housing characteristics, transportation time to resources, combined sewer overflows, gunfire
 
+## <https://geomarker.io/geomarkers>
+
+```{r}
+#| echo: false
+knitr::include_url("https://geomarker.io/geomarkers", height = "600px")
+```
+
+## *Geocoding:*&nbsp; Converting a string of text into spatial coordinates or boundaries
+
+![](figs/address_ranges.png){fig-align="center"}
+
+*Street range* geocoding estimates location based on geometry of potential address range
+
+## **Geomarker Assessment**: Estimated geomarker for a person
+
+Individual-level geocodes and geospatial features can be points, lines, or areas.
+
+:::: {.columns}
+::: {.column width="35%"}
+- **Containing geography**: census tract linkage to survey data; neighborhood linked to policies or characteristics
+- **Radial measures**: buffer designated around location with a radius; length, area, or density of sources
+- **Exact location**: proximity to predicted source, nearest neighbor weighting, krigging, land use models
 :::
-
-
-:::{.column width="60%"}
-
+::: {.column width="65%"}
 ```{r}
 #| out.width: 15in
 #| dpi: 300
 #| fig.align: center
-knitr::include_graphics("figs/geomarker-map-4panel.png")
-```
-
-:::
-
-::::
-
-::: footer
-<https://geomarker.io/geomarkers>
-:::
-
-# Geomarker Curation
-
-## FAIR^[<https://data.org/resources/the-fair-data-principles/>]
-
-- 🔎 **findable**: use a unique and persistent identifier, add rich metadata (using existing standards^[<https://rd-alliance.github.io/metadata-directory/standards/>])
-- 🔓 **accessible**: store in a data repository (⚠️ personal/classified information, but metadata still accessible)
-- ⚙️ **interoperable**: use an open file format with controlled vocabularies, reference relevant datasets
-- ♻️ **reusable**: well documented, including a description (README with data sources, background, and how to reproduce the data), a data dictionary (field descriptions, units, titles, missingness), and usage licenses (for code^[<https://choosealicense.com/licenses/>] or data/presentations/papers^[<https://creativecommons.org/about/cclicenses/>]) 
-
-## The White House's Equitable Data Working Group^[<https://www.whitehouse.gov/briefing-room/statements-releases/2022/04/22/fact-sheet-biden-harris-administration-releases-recommendations-for-advancing-use-of-equitable-data/>]:
-
-- Equitable data are "those that allow for rigorous assessment of the extent to which government programs and policies yield consistently fair, just, and impartial treatment of all individuals."
-- Equitable data should “illuminate opportunities for targeted actions that will result in demonstrably improved outcomes for underserved communities.”
-- Make disaggregated data the norm while being "... intentional about when data are collected and shared, as well as how data are protected so as not to exacerbate the vulnerability of members of underserved communities, many of whom face the heightened risk of harm if their privacy is not protected."
-
-## Disaggregation
-
-- Open data can fall short of driving action if it is not equitable.
-- Disaggregating^[[Kader F, Doan LN, Lee M, Chin MK, Kwon SC, Yi SS. Disaggregating race/ethnicity data categories: Criticisms, dangers, and opposing viewpoints.](https://doi.org/10.1377/forefront.20220323.555023)] data by sensitive attributes, like race and ethnicity, can elucidate inequities that would otherwise remain hidden.
-- "Open data is necessary and **not** sufficient to drive the type of action that we need to create a more equitable society." - U.S. Chief Data Scientist, Denice Ross^[<https://www.fedscoop.com/us-chief-data-scientist-interview/>]
-
-## The TRUST principles for digital repositories^[[Lin D, Crabtree J, Dillo I, Downs RR, Edmunds R, Giaretta D, De Giusti M, L’Hours H, Hugo W, Jenkyns R, Khodiyar V. The TRUST Principles for digital repositories. Scientific Data. 2020 May 14;7(1):144.](https://doi.org/10.1038/s41597-020-0486-7)]
-
-Creating and maintaining an open community-level data resource equips the entire community for data-powered decision making *and* boosts organizational trustworthiness. Demonstrating reliability and capability of appropriately managing shared data helps earn the trust of organizations and communities intended to be served:
-
-- 🤲 **transparent**: make specific repository services and data holdings verifiable by publicly accessible evidence
-- 📃 **responsible**: ensure authenticity and integrity of data holdings
-- 👥 **user-focused**: meet data management norms and expectations of target user communities
-- ⏳️️ **sustainable**: preserve services and data holdings for the long-term
-- ⚙️ **technological**: provide infrastructure and capabilities supporting secure, persistent, and reliable services
-
-# CoDEC
-	
-## Community Data Explorer for Cincinnati
-
-:::: {.columns}
-:::{.column width="70%"}
-**CoDEC** is a framework, toolset, and data repository composed of equitable, community-level data for Cincinnati designed to be shared and openly accessed.
-
-&nbsp;
-
-:::{#title-slide .center}
-<https://geomarker.io/codec>
-:::
-:::
-:::{.column width="30%"}
-```{r}
-#| out.width: 2in
-#| dpi: 300
-#| fig.align: right
-knitr::include_graphics("https://geomarker.io/codec/logo.svg")
-```
-:::
-::::
-
-::: {.incremental}
-
-1. Define common data specification for community-level data considering FAIR, TRUST, privacy, equitable disaggregation.
-1. Create and disseminate methods and tools for harmonizing and *sharing* community-level data, including spatiotemporal interpolation, data validation, API for accessing data at scale and on demand.
-1. Serve a portable interactive data catalog derived on demand from metadata and an open API to link to or include with other data catalogs (e.g., GCCHDC, C2D2).
-1. Create an interactive web application to explore community-level distributions across Cincinnati and explore simple relationships between community-level measures.
-  
-:::
-
-## CoDEC Overview
-
-:::: {.columns}
-::: {.column width="100%"}
-```{r}
-#| out.width: 14in
-#| dpi: 300
-#| fig.align: center
-knitr::include_graphics("figs/codec_overview.svg")
-```
-:::
-::::
-
-## Upstream Data Curation
-
-:::: {.columns}
-:::{.column width="50%"}
-```{r}
-#| out.width: 5in
-#| dpi: 300
-#| fig.align: left
-knitr::include_graphics("https://geomarker.io/codec/reference/figures/codec_harmonization.svg")
-```
-:::
-:::{.column width="50%"}
-[CoDEC](https://en.wikipedia.org/wiki/Codec) encodes data streams about the communities in which we live into a common format so that it can be decoded into different community-level geographies and different time frames.
-:::
-::::
-
-## CoDEC Standards Build on Frictionless Standards
-
-Developed by the [Open Knowledge Foundation](https://okfn.org/), the frictionless^[<https://frictionlessdata.io/>] [standards](https://specs.frictionlessdata.io/) are a set of patterns for describing data, including datasets ([Data Package](https://specs.frictionlessdata.io/data-package/)), files ([Data Resource](https://specs.frictionlessdata.io/data-resource/)), and tables ([Table Schema](https://specs.frictionlessdata.io/table-schema/)). 
-
-Open and robust tooling around low-code and no-code creation, curation, and sharing of data.
-
-:::: {.columns}
-::: {.column width="100%"}
-```{r}
-#| out.width: 8.5in
-#| dpi: 300
-#| fig.align: center
-knitr::include_graphics("https://geomarker.io/codec/articles/codec_metadata.svg")
+knitr::include_graphics("figs/land_use_fig_greenspace.png")
 ```
 :::
 ::::
@@ -219,49 +119,6 @@ knitr::include_graphics("figs/cincy_interpolation.png")
 ::::
 
 		
-## CoDEC Integrated Data Cores
-
-- [Tract-Level Indices](https://github.com/geomarker-io/tract_indices)
-- [Harmonized Historical American Community Survey Measures](https://github.com/geomarker-io/hh_acs_measures)
-- [Property Code Enforcement](https://github.com/geomarker-io/hamilton_property_code_enforcement)
-- [Drive Time to CCHMC](https://github.com/geomarker-io/hamilton_drivetime)
-- [Land Cover and Built Environment](https://github.com/geomarker-io/hamilton_landcover)
-- [Parcel and Household Traffic](https://github.com/geomarker-io/hamilton_traffic)
-- [Crime Risk](https://github.com/geomarker-io/hamilton_crime_risk)
-
-&nbsp;
-
-&nbsp;
-
-:::{#title-slide .center}
-<https://geomarker.io/codec/articles/data>
-:::
-
-## Interactive CoDEC
-
-![](figs/codec_explorer_screenshot.png){fig-align="center"}
-
-# Computation
-
-## Geomarker Assessment
-
-:::: {.columns}
-::: {.column width="40%"}
-- **Containing geography**: census tract linkage to survey data; neighborhood linked to policies or characteristics
-- **Radial measures**: buffer designated around location with a radius; length, area, or density of sources
-- **Exact location**: proximity to predicted source, nearest neighbor weighting, krigging, land use models
-- **Identifier linkage**: Auditor, tax, educational data resources
-:::
-::: {.column width="60%"}
-```{r}
-#| out.width: 15in
-#| dpi: 300
-#| fig.align: center
-knitr::include_graphics("figs/geomarker-map-4panel.png")
-```
-:::
-::::
-
 ## ZIP Code
 
 - utilize addresses without geocoding
@@ -281,65 +138,42 @@ knitr::include_graphics("figs/geomarker-map-4panel.png")
 :::
 
 
-## Geomarker Exposure Assessment Pipeline for Research
-
-:::: {.columns}
-::: {.column width="100%"}
-```{r}
-#| out.width: 8.5in
-#| dpi: 300
-#| fig.align: center
-knitr::include_graphics("https://www.mermaidchart.com/raw/e2d98a80-f9b1-48f9-ba68-a1e1d94104be?version=v0.1&theme=light&format=svg")
-```
-:::
-::::
-
 # Privacy and Geomarkers
-
-## 
-
-### Privacy
+## Privacy
 
 - Data are people^[[Zook M, Barocas S, Boyd D, Crawford K, Keller E, Gangadharan SP, Goodman A, Hollander R, Koenig BA, Metcalf J, Narayanan A. Ten simple rules for responsible big data research. PLoS computational biology. 2017 Mar 30;13(3):e1005399.](https://doi.org/10.1371/journal.pcbi.1005399)]
 - Privacy is a spectrum of the tradeoffs between risks and benefits to individuals and populations
 - Data collected at the individual-level by one organization often cannot be shared^[<https://sharing.nih.gov/data-management-and-sharing-policy/protecting-participant-privacy-when-sharing-scientific-data/principles-and-best-practices-for-protecting-participant-privacy>] with another organization due to legal restrictions or organization-specific data governance policies
-
-### Protected Health Information (PHI)
+  - Consent often not obtained for unforeseen future analyses
+  - Retrospective consent often not feasible + consent bias
+  - Incompatible policies on transmission of identifiable data to a third party
+  
+## Protected Health Information (PHI)
 
 - Confidentiality of research subjects must be safeguarded
-- HIPAA-defined "Safe Harbor" provision prohibits sharing of identifiers and quasi-identifiers, such as:
+- HIPAA-defined [Safe Harbor](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html) provision prohibits sharing of identifiers and quasi-identifiers, such as:
   - time finer than a calendar year
   - spatial boundary with < 20,000 residents
+- Deidentification can ensure small, *but non-zero*, chance of reidentification
+- Recover pseudo-identifiers with enough deidentified geomarker measures
 
-##
+## Existing Approaches for Privacy
 
-### Sharing Data with PHI
+- **Anonymization**: geomasking, date shifting, generalization
+- **Independent Geomarker Assessment**: differences in methods introduce differential bias
+- **Existing Software Approaches**: costly, not scalable, not reproducible
+- **Phantom Address**: supplement real pseudo identifers with simulated dates and locations
 
-- Consent often not obtained for unforeseen future analyses
-- Retrospective consent often not feasible + consent bias
-- IRB and institutional DUA approvals can be lengthy and have different requirements
-- Transmission of PHI to a third party often not possible
-
-### De- and Re-identification
-
-- deidentification can ensure small, *but non-zero*, chance of reidentification
-- re-identification of identifiers ≠ re-identification of quasi-identifiers
-  - quasi-identifiers recovered by merging with extant datasets
-  - institutional restrictions on sharing of quasi-identifiers
-
-
+# DeGAUSS
 ## **DE**centralized **G**eomarker **A**ssessment for m**U**lti **S**ite **S**tudies
 
-![](figs/degauss_hex.png){.absolute right=150 top=110 width=180}
+![](figs/degauss_hex.png){.absolute right=160 top=110 width=180}
 
-DeGAUSS is a curated and standardized library for secure, efficient, automated, and reproducible linkage of geomarkers to protected health and geolocation data at scale.
+**DeGAUSS** is a curated and standardized library for secure, efficient, automated, and reproducible linkage of geomarkers to protected health and geolocation data at scale.
 
 &nbsp;
 
-
-:::{#title-slide .center}
 <https://degauss.org>
-:::
 
 &nbsp;
 
@@ -350,50 +184,28 @@ DeGAUSS is a curated and standardized library for secure, efficient, automated, 
 
 ![](figs/degauss_multisite_study-degauss_flow.png){fig-align="center"}
 
+## Multi-Site Study
 
-## DeGAUSS Enterprise Implementation
+![](figs/degauss_multisite_study-4panel_1.png){.absolute width=1000 top=20}
 
-- C2D2 Article on Geomarkers : <https://c2d2.cchmc.org/article/1489/>
-- DeGAUSS users and consumers
-- IS4R data request (de-identified!)
-- <https://menu.degauss.org>
+## Data → Computation
+	
+![](figs/degauss_multisite_study-4panel_2.png){.absolute width=1000 top=20}
+	
+## Data ← Computation
 
-# Parcel-level Geomarkers
+![](figs/degauss_multisite_study-4panel_3.png){.absolute width=1000 top=20}
 
-## Street range geocoding
+## Sharing Computation on Data
 
-- Estimate exact location of a building on a street using the street number and street range address geographies
-- Ideal for linkage with area-level data, but inherently not precise enough to link a residential address to a residential parcel
-- Real-world addresses are messy, inconsistent, 'inaccurate'
-- No widely-adopted address component standards
+![](figs/degauss_multisite_study-4panel_4.png){.absolute width=1000 top=20}
 
-## Parcel linkage
+## DeGAUSS Library
 
-1. Parse address into distinct components (`usaddress`, `libpostal`)
-2. Apply multivariable linkage methods (`hashdress`, `dedupe`)
-
-### {[parcel](https://github.com/geomarker-io/parcel)} package for R:
-
-- clean addresses and parse components
-- provide motivating data resources of Hamilton County Parcels and characteristics
-- join addresses to parcel identifiers based on included model pretrained on EHR records in Hamilton County
-- special cases support for institutional addresses, apartment complexes, condos, owner name/address linkage
-
-## Parcel linkage with CCHMC Hospital Admissions
-
-
-:::: {.columns}
-::: {.column width="100%"}
 ```{r}
-#| out.width: 12in
-#| dpi: 300
-#| fig.align: center
-knitr::include_graphics("figs/parcel_linkage.svg")
+#| echo: false
+knitr::include_url("https://degauss.org/available_images", height = "600px")
 ```
-:::
-::::
-
-# Applications
 
 ## ECHO Program
 
@@ -416,18 +228,214 @@ knitr::include_graphics("figs/degauss_st_overview.png")
 [Rasnick et al. High Resolution and Spatiotemporal Place-Based Computable Exposures at Scale. *AMIA Summits on Translational Science Proceedings*. 2023.](https://github.com/degauss-org/pm)
 :::
 
-## Elevated Blood Lead
+## DeGAUSS Enterprise Implementation
+
+- Geocoding and core library of geomarkers available for all of Clarity, updated weekly
+- C2D2 Article on Geomarkers : <https://c2d2.cchmc.org/article/1489/>
+- DeGAUSS users and consumers
+- IS4R data request (de-identified!)
+- <https://menu.degauss.org>
+
+## Geomarker Exposure Assessment Pipeline for Research
 
 :::: {.columns}
 ::: {.column width="100%"}
 ```{r}
-#| out.width: 10in
+#| out.width: 8.5in
 #| dpi: 300
 #| fig.align: center
-knitr::include_graphics("figs/odh_lead_appshot.png")
+knitr::include_graphics("https://www.mermaidchart.com/raw/e2d98a80-f9b1-48f9-ba68-a1e1d94104be?version=v0.1&theme=light&format=svg")
 ```
 :::
 ::::
+
+# Parcel Linkage
+## Geocoding
+
+- Estimate exact location of a building on a street using the street number and street range address geographies
+- Ideal for linkage with area-level data, but inherently not precise enough to link a residential address to a residential parcel
+- Real-world addresses are messy, inconsistent, 'inaccurate'
+- No widely-adopted address component standards
+
+## Parcel Linkage
+
+1. Parse address into distinct components (`usaddress`, `libpostal`)
+2. Apply multivariable linkage methods (`hashdress`, `dedupe`)
+
+### [parcel](https://github.com/geomarker-io/parcel) package for R:
+
+- clean addresses and parse components
+- provide motivating data resources of Hamilton County Parcels and characteristics
+- join addresses to parcel identifiers based on included model pretrained on EHR records in Hamilton County
+- special cases support for institutional addresses, apartment complexes, condos, owner name/address linkage
+
+## Parcel linkage with CCHMC Hospital Admissions (2016-2022)
+
+
+:::: {.columns}
+::: {.column width="100%"}
+```{r}
+#| out.width: 12in
+#| dpi: 300
+#| fig.align: center
+knitr::include_graphics("figs/parcel_linkage.svg")
+```
+:::
+::::
+
+- 124,244 hospitalizations experienced by 69,842 kids linked to 19,364 unique parcels (75% match rate)
+- 6% total matches non-residential; residential matches: 80% single family, 19% multi-family
+- 8.5% of all linked parcels had enforced housing code violation
+
+## Home Hospitalization History ("Pedigree")
+
+
+:::: {.columns}
+::: {.column width="100%"}
+```{r}
+#| out.width: 8in
+#| dpi: 300
+#| fig.align: center
+knitr::include_graphics("figs/parcel_pedigree.svg")
+```
+:::
+::::
+
+# Elevated Blood Lead in Children
+
+## ZIP Code Elevated Blood Lead Risk
+
+![](figs/odh_lead_appshot.png){fig-align="center"}
+
+## Parcel-Level Elevated Blood Lead Risk
+
+- **Neighborhood:** vacant housing, deteriorated paint, built prior to 1970, tenure, assisted income, median income, population density, crowding, education, poverty
+- **Source:** airports, imperviousness, traffic-related air pollution, tree canopy, National Emissions Inventory
+- **Parcel:** market total value, land use category, number and type of rooms, enforced housing code violations
+
+Crossvalidated accuracy of GRF prediction models:
+
+![](figs/lead_auc.png){fig-align="center"}
+
+## GRF Variable Importance
+
+![](figs/lead_var_imp.png){fig-align="center"}
+
+## Tract Lead Risk Map
+
+![](figs/lead_parcel_risk_tract.png){fig-align="center"}
+
+## Parcel-Source Lead Risk Map
+
+![](figs/lead_parcel_risk_parcel.png){fig-align="center"}
+
+# CoDEC
+
+## Community Data Explorer for Cincinnati
+
+:::: {.columns}
+:::{.column width="70%"}
+**CoDEC** is a framework, toolset, and data repository composed of equitable, community-level data for Cincinnati designed to be shared and openly accessed.
+
+&nbsp;
+
+:::{#title-slide .center}
+<https://geomarker.io/codec>
+:::
+:::
+:::{.column width="30%"}
+```{r}
+#| out.width: 2in
+#| dpi: 300
+#| fig.align: right
+knitr::include_graphics("https://geomarker.io/codec/logo.svg")
+```
+:::
+::::
+
+::: {.incremental}
+
+1. Define common data specification for community-level data considering FAIR, TRUST, privacy, equitable disaggregation.
+1. Create and disseminate methods and tools for harmonizing and *sharing* community-level data, including spatiotemporal interpolation, data validation, API for accessing data at scale and on demand.
+1. Serve a portable interactive data catalog derived on demand from metadata and an open API to link to or include with other data catalogs (e.g., GCCHDC, C2D2).
+1. Create an interactive web application to explore community-level distributions across Cincinnati and explore simple relationships between community-level measures.
+  
+:::
+
+
+
+
+
+
+## CoDEC Overview
+
+:::: {.columns}
+::: {.column width="120%"}
+```{r}
+#| out.width: 14in
+#| dpi: 300
+knitr::include_graphics("figs/codec_overview.svg")
+```
+:::
+::::
+
+
+## Upstream Data Curation
+
+:::: {.columns}
+:::{.column width="50%"}
+[CoDEC](https://en.wikipedia.org/wiki/Codec) encodes data streams about the communities in which we live into a common format so that it can be decoded into different community-level geographies and different time frames.
+:::
+:::{.column width="50%"}
+```{r}
+#| out.width: 5in
+#| dpi: 300
+#| fig.align: left
+knitr::include_graphics("https://geomarker.io/codec/reference/figures/codec_harmonization.svg")
+```
+:::
+::::
+
+
+## CoDEC Standards Build on Frictionless Standards
+
+Developed by the [Open Knowledge Foundation](https://okfn.org/), the [frictionless](https://frictionlessdata.io/) [standards](https://specs.frictionlessdata.io/) are a set of patterns for describing data, including datasets ([Data Package](https://specs.frictionlessdata.io/data-package/)), files ([Data Resource](https://specs.frictionlessdata.io/data-resource/)), and tables ([Table Schema](https://specs.frictionlessdata.io/table-schema/)).
+
+:::: {.columns}
+::: {.column width="100%"}
+```{r}
+#| out.width: 8.5in
+#| dpi: 300
+#| fig.align: center
+knitr::include_graphics("https://geomarker.io/codec/articles/codec_metadata.svg")
+```
+:::
+::::
+
+*Open and robust tooling around low-code and no-code creation, curation, and sharing of data.*
+
+## CoDEC Integrated Data Cores
+
+- [Tract-Level Indices](https://github.com/geomarker-io/tract_indices)
+- [Harmonized Historical American Community Survey Measures](https://github.com/geomarker-io/hh_acs_measures)
+- [Property Code Enforcement](https://github.com/geomarker-io/hamilton_property_code_enforcement)
+- [Drive Time to CCHMC](https://github.com/geomarker-io/hamilton_drivetime)
+- [Land Cover and Built Environment](https://github.com/geomarker-io/hamilton_landcover)
+- [Parcel and Household Traffic](https://github.com/geomarker-io/hamilton_traffic)
+- [Crime Risk](https://github.com/geomarker-io/hamilton_crime_risk)
+
+&nbsp;
+
+&nbsp;
+
+:::{#title-slide .center}
+<https://geomarker.io/codec/articles/data>
+:::
+
+
+## Interactive CoDEC
+
+![](figs/codec_explorer_screenshot.png){fig-align="center"}
 
 # Thank You
 
@@ -435,5 +443,4 @@ knitr::include_graphics("figs/odh_lead_appshot.png")
 👨‍💻️ [github.com/cole-brokamp](https://github.com/cole-brokamp)  
 🐦 [@cole_brokamp](https://twitter.com/cole_brokamp)  
 📧 [cole.brokamp@cchmc.org](mailto:cole.brokamp@cchmc.org)  
-
 
