@@ -155,7 +155,7 @@ knitr::include_graphics("figs/cincy_interpolation.png")
   - time finer than a calendar year
   - spatial boundary with < 20,000 residents
 - Deidentification can ensure small, *but non-zero*, chance of reidentification
-- Recover pseudo-identifiers with enough deidentified geomarker measures
+- Recover quasi-identifiers with enough deidentified geomarker measures
 
 ## Existing Approaches for Privacy
 
@@ -163,6 +163,10 @@ knitr::include_graphics("figs/cincy_interpolation.png")
 - **Independent Geomarker Assessment**: differences in methods introduce differential bias
 - **Existing Software Approaches**: costly, not scalable, not reproducible
 - **Phantom Address**: supplement real pseudo identifers with simulated dates and locations
+
+## Safe Harbor Geohash
+
+![](figs/safe_harbor_maps.png){.absolute width=1000 top=50}
 
 # DeGAUSS
 ## **DE**centralized **G**eomarker **A**ssessment for m**U**lti **S**ite **S**tudies
@@ -234,7 +238,7 @@ knitr::include_graphics("figs/degauss_st_overview.png")
 - C2D2 Article on Geomarkers : <https://c2d2.cchmc.org/article/1489/>
 - DeGAUSS users and consumers
 - IS4R data request (de-identified!)
-- <https://menu.degauss.org>
+- <https://degauss.org/menu>
 
 ## Geomarker Exposure Assessment Pipeline for Research
 
@@ -362,11 +366,6 @@ knitr::include_graphics("https://geomarker.io/codec/logo.svg")
   
 :::
 
-
-
-
-
-
 ## CoDEC Overview
 
 :::: {.columns}
@@ -378,7 +377,6 @@ knitr::include_graphics("figs/codec_overview.svg")
 ```
 :::
 ::::
-
 
 ## Upstream Data Curation
 
@@ -395,7 +393,6 @@ knitr::include_graphics("https://geomarker.io/codec/reference/figures/codec_harm
 ```
 :::
 ::::
-
 
 ## CoDEC Standards Build on Frictionless Standards
 
@@ -431,7 +428,6 @@ knitr::include_graphics("https://geomarker.io/codec/articles/codec_metadata.svg"
 :::{#title-slide .center}
 <https://geomarker.io/codec/articles/data>
 :::
-
 
 ## Interactive CoDEC
 
