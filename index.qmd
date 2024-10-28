@@ -1,8 +1,8 @@
 ---
-title: "Population Health Informatics"
-subtitle: "Clinical Informatics Learning Community"
+title: "Geomarker Curation and Computation"
+subtitle: "BMI7053"
 author: "Cole Brokamp"
-date: "2023-11-02"
+date: "2024-10-30"
 format: 
   revealjs:
     theme: cole.scss
@@ -39,6 +39,16 @@ Cincinnati Children’s Hospital Medical Center
 
 ![](figs/cole_circle.png){.absolute right=150 top=-20 width=200}
 	
+## Geomarker Curation and Computation
+
+**→ Geomarker and geomarker assessment**
+
+**→ Privacy, geomarkers, and health data**
+
+**→ DeGAUSS methods and software**
+
+**→ Address linkage methods and applications**
+
 # Geomarkers
 ## *Geomarker:*&nbsp; Any place-based measure that influences or predicts health
 
@@ -229,7 +239,7 @@ knitr::include_graphics("figs/degauss_st_overview.png")
 ::::
 
 ::: footer
-[Rasnick et al. High Resolution and Spatiotemporal Place-Based Computable Exposures at Scale. *AMIA Summits on Translational Science Proceedings*. 2023.](https://github.com/degauss-org/pm)
+[Rasnick E, Ryan P, Blosson J, Luttmann-Gibson H, Lothrop N, Habre R, Gold DR, Vancil A, Schwartz J, Gern JE, Brokamp C. High Resolution and Spatiotemporal Place-Based Computable Exposures at Scale. *AMIA Jt Summits Transl Sci Proc*. 2023.](https://pmc.ncbi.nlm.nih.gov/articles/PMC10283107/)
 :::
 
 ## DeGAUSS Enterprise Implementation
@@ -239,21 +249,35 @@ knitr::include_graphics("figs/degauss_st_overview.png")
 - DeGAUSS users and consumers
 - IS4R data request (de-identified!)
 - <https://degauss.org/menu>
-
-## Geomarker Exposure Assessment Pipeline for Research
+- DeGAUSS Portal
 
 :::: {.columns}
-::: {.column width="100%"}
+::: {.column width="50%"}
 ```{r}
-#| out.width: 8.5in
-#| dpi: 300
 #| fig.align: center
-knitr::include_graphics("https://www.mermaidchart.com/raw/e2d98a80-f9b1-48f9-ba68-a1e1d94104be?version=v0.1&theme=light&format=svg")
+knitr::include_graphics("figs/degauss_portal_screenshot.png")
+```
+:::
+::: {.column width="40%"}
+```{r}
+#| fig.align: center
+knitr::include_graphics("figs/degauss_portal_diagram.png")
 ```
 :::
 ::::
 
-# Parcel Linkage
+## Geomarker Exposure Assessment Pipeline for Research
+
+```{r}
+#| fig.align: center
+knitr::include_graphics("figs/manning_2024_Fig_1.png")
+```
+
+::: footer
+[Manning ER, et al. Development of a multimodal geomarker pipeline to assess the impact of social, economic, and environmental factors on pediatric health outcomes. *J Am Med Inform Assoc*. 2024.](https://pubmed.ncbi.nlm.nih.gov/38733117/)
+:::
+
+# Address Linkage
 ## Geocoding
 
 - Estimate exact location of a building on a street using the street number and street range address geographies
@@ -261,20 +285,33 @@ knitr::include_graphics("https://www.mermaidchart.com/raw/e2d98a80-f9b1-48f9-ba6
 - Real-world addresses are messy, inconsistent, 'inaccurate'
 - No widely-adopted address component standards
 
+## Address Linkage Challenges
+
+### Did you move?
+
+- testing equality of addresses
+- equivalence of geocoded locations
+- natural language approaches
+- multiple addresses per clinical encounter
+
+### Heterogeneous Address Data
+
+- mailing address ≠ municipal/city/county/state addresses
+- landlords and shell companies
+
 ## Parcel Linkage
 
 1. Parse address into distinct components (`usaddress`, `libpostal`)
 2. Apply multivariable linkage methods (`hashdress`, `dedupe`)
 
-### [parcel](https://github.com/geomarker-io/parcel) package for R:
+### [addr](https://github.com/geomarker-io/addr) package for R:
 
 - clean addresses and parse components
 - provide motivating data resources of Hamilton County Parcels and characteristics
 - join addresses to parcel identifiers based on included model pretrained on EHR records in Hamilton County
 - special cases support for institutional addresses, apartment complexes, condos, owner name/address linkage
 
-## Parcel linkage with CCHMC Hospital Admissions (2016-2022)
-
+## Parcel linkage with CCHMC Electronic Health Records
 
 :::: {.columns}
 ::: {.column width="100%"}
@@ -282,34 +319,57 @@ knitr::include_graphics("https://www.mermaidchart.com/raw/e2d98a80-f9b1-48f9-ba6
 #| out.width: 12in
 #| dpi: 300
 #| fig.align: center
-knitr::include_graphics("figs/parcel_linkage.svg")
+knitr::include_graphics("figs/manning_2024_Fig_2.png")
 ```
 :::
 ::::
 
-- 124,244 hospitalizations experienced by 69,842 kids linked to 19,364 unique parcels (75% match rate)
-- 6% total matches non-residential; residential matches: 80% single family, 19% multi-family
-- 8.5% of all linked parcels had enforced housing code violation
+::: footer
+<https://github.com/geomarker-io/parcel>
+:::
 
-## Home Hospitalization History ("Pedigree")
+# Address Linkage Applications
+## Longitudinal Residential History in an EHR-based Prospective Cohort
 
+- Registry of children utilizing CCHMC ED/UC for asthma July 2016 - July 2022
+- Prospectively follow 13,404 asthma patients living at 22,762 unique addresses for 11 million cumulative patient-days
 
-:::: {.columns}
-::: {.column width="100%"}
 ```{r}
-#| out.width: 8in
-#| dpi: 300
 #| fig.align: center
-knitr::include_graphics("figs/parcel_pedigree.svg")
+knitr::include_graphics("figs/longitudinal_residential_address_history_and_event.png")
 ```
+
+## Exacerbations associated with poor housing conditions
+
+:::: columns
+
+::: column
+
+- 9.9% experienced an exacerbation
+- 12% exposed to poor housing conditions
+- proportional hazards model adjusted for public insurance and total market value by housing type
+- living at a parcel with a housing infraction during the previous year associated with **34% (95% CI: 8% to 67%) increased exacerbation risk**
+
+:::
+
+::: column
+
+```{r}
+#| fig.align: center
+#| out.width: 5in
+knitr::include_graphics("figs/asthma_housing_km.png")
+```
+
 :::
 ::::
 
-# Elevated Blood Lead in Children
+::: footer
+[*Under Review.* Brokamp C, Ray S, Duan Q, Hartlage CS, Taylor S, Manning ER, Unaka N, Jones MN, Michael J, Henize AW, Beck AF. The Impact of Parcel-Level Housing Conditions on Pediatric Asthma Hospital Utilization. 2024.](https://github.com/geomarker-io/parcel)
+:::
 
 ## ZIP Code Elevated Blood Lead Risk
 
-![](figs/odh_lead_appshot.png){fig-align="center"}
+![](figs/ODH_lead_risk_web_app.png){fig-align="center"}
 
 ## Parcel-Level Elevated Blood Lead Risk
 
@@ -323,115 +383,12 @@ Crossvalidated accuracy of GRF prediction models:
 
 ## GRF Variable Importance
 
-![](figs/lead_var_imp.png){fig-align="center"}
+![](figs/var_imp.png){fig-align="center"}
 
-## Tract Lead Risk Map
+## Increased Precision
 
-![](figs/lead_parcel_risk_tract.png){fig-align="center"}
+![](figs/static_tract_parcel_risk.png){fig-align="center"}
 
-## Parcel-Source Lead Risk Map
-
-![](figs/lead_parcel_risk_parcel.png){fig-align="center"}
-
-# CoDEC
-
-## Community Data Explorer for Cincinnati
-
-:::: {.columns}
-:::{.column width="70%"}
-**CoDEC** is a framework, toolset, and data repository composed of equitable, community-level data for Cincinnati designed to be shared and openly accessed.
-
-&nbsp;
-
-:::{#title-slide .center}
-<https://geomarker.io/codec>
-:::
-:::
-:::{.column width="30%"}
-```{r}
-#| out.width: 2in
-#| dpi: 300
-#| fig.align: right
-knitr::include_graphics("https://geomarker.io/codec/logo.svg")
-```
-:::
-::::
-
-::: {.incremental}
-
-1. Define common data specification for community-level data considering FAIR, TRUST, privacy, equitable disaggregation.
-1. Create and disseminate methods and tools for harmonizing and *sharing* community-level data, including spatiotemporal interpolation, data validation, API for accessing data at scale and on demand.
-1. Serve a portable interactive data catalog derived on demand from metadata and an open API to link to or include with other data catalogs (e.g., GCCHDC, C2D2).
-1. Create an interactive web application to explore community-level distributions across Cincinnati and explore simple relationships between community-level measures.
-  
-:::
-
-## CoDEC Overview
-
-:::: {.columns}
-::: {.column width="120%"}
-```{r}
-#| out.width: 14in
-#| dpi: 300
-knitr::include_graphics("figs/codec_overview.svg")
-```
-:::
-::::
-
-## Upstream Data Curation
-
-:::: {.columns}
-:::{.column width="50%"}
-[CoDEC](https://en.wikipedia.org/wiki/Codec) encodes data streams about the communities in which we live into a common format so that it can be decoded into different community-level geographies and different time frames.
-:::
-:::{.column width="50%"}
-```{r}
-#| out.width: 5in
-#| dpi: 300
-#| fig.align: left
-knitr::include_graphics("https://geomarker.io/codec/reference/figures/codec_harmonization.svg")
-```
-:::
-::::
-
-## CoDEC Standards Build on Frictionless Standards
-
-Developed by the [Open Knowledge Foundation](https://okfn.org/), the [frictionless](https://frictionlessdata.io/) [standards](https://specs.frictionlessdata.io/) are a set of patterns for describing data, including datasets ([Data Package](https://specs.frictionlessdata.io/data-package/)), files ([Data Resource](https://specs.frictionlessdata.io/data-resource/)), and tables ([Table Schema](https://specs.frictionlessdata.io/table-schema/)).
-
-:::: {.columns}
-::: {.column width="100%"}
-```{r}
-#| out.width: 8.5in
-#| dpi: 300
-#| fig.align: center
-knitr::include_graphics("https://geomarker.io/codec/articles/codec_metadata.svg")
-```
-:::
-::::
-
-*Open and robust tooling around low-code and no-code creation, curation, and sharing of data.*
-
-## CoDEC Integrated Data Cores
-
-- [Tract-Level Indices](https://github.com/geomarker-io/tract_indices)
-- [Harmonized Historical American Community Survey Measures](https://github.com/geomarker-io/hh_acs_measures)
-- [Property Code Enforcement](https://github.com/geomarker-io/hamilton_property_code_enforcement)
-- [Drive Time to CCHMC](https://github.com/geomarker-io/hamilton_drivetime)
-- [Land Cover and Built Environment](https://github.com/geomarker-io/hamilton_landcover)
-- [Parcel and Household Traffic](https://github.com/geomarker-io/hamilton_traffic)
-- [Crime Risk](https://github.com/geomarker-io/hamilton_crime_risk)
-
-&nbsp;
-
-&nbsp;
-
-:::{#title-slide .center}
-<https://geomarker.io/codec/articles/data>
-:::
-
-## Interactive CoDEC
-
-![](figs/codec_explorer_screenshot.png){fig-align="center"}
 
 # Thank You
 
@@ -440,3 +397,10 @@ knitr::include_graphics("https://geomarker.io/codec/articles/codec_metadata.svg"
 🐦 [@cole_brokamp](https://twitter.com/cole_brokamp)  
 📧 [cole.brokamp@cchmc.org](mailto:cole.brokamp@cchmc.org)  
 
+
+## CoDEC
+
+```{r}
+#| echo: false
+knitr::include_url("https://geomarker.io/codec", height = "600px")
+```
